@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% block navbarver %}
+<ul class="navbar-nav">
+  <li class="navbar-item text-start ps-3">
+    <a class="nav-link text-white" href="{{ url_for('criar_recado_fixo') }}"
+      >Criação Recado Mural</a
+    >
+  </li>
+  <li class="navbar-item text-start ps-3">
+    <a class="nav-link text-white" href="{{ url_for('central_de_solucoes') }}"
+      >Central de Soluções</a
+    >
+  </li>
+  <li class="navbar-item text-start ps-3">
+    <a href="{{ url_for('usuarios') }}" class="text-white nav-link"
+      >Central Usuários</a
+    >
+  </li>
+   <li class="navbar-item text-start ps-3">
+    <a class="nav-link text-white" href="{{ url_for('central_suporte') }}"
+      >Central Suportes</a
+    >
+  </li>
+</ul>
+{% endblock %} {% block body %}
+  {% include 'encaminha_recados.html' %}
+{% endblock %}

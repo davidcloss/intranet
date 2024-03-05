@@ -1,0 +1,44 @@
+{% extends 'usuarios.html' %} {% block edit %} {% endblock %} {% block central %}
+{% set setor = retorna_setor_current_user() %}
+{% set cargo = retorna_cargo_current_user() %}
+<div class="container">
+  <table class="table table-striped table-hover align-middle">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Setor</th>
+        <th>Cargo</th>
+        <th>E-mail</th>
+        <th>Ramal</th>
+        {% if setor.hierarquia > 0 or cargo.grau_hierarquia >= 5 %}
+        <th>Editar</th>
+        {% endif %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for usuario in usuarios %}
+      <tr>
+        <td><a href="{{ url_for('perfil', id_usuario=usuario.id) }}">{{ usuario.nome_usuario }}</a></td>
+        <td>{{ setor.query.filter_by(id=usuario.id_setor).first() }}</td>
+        <td>{{ cargos.query.filter_by(id=usuario.id_cargo).first() }}</td>
+        <td>{{ usuario.email_uso }}</td>
+        <td>
+          {% set usuario_ramal =
+          usuario_ramal.query.filter_by(id_usuario=usuario.id).first() %} {% if
+          usuario_ramal %} {{
+          ramais.query.filter_by(id=usuario_ramal.id_ramal).first() }} {% else
+          %} - {% endif %}
+        </td>
+        {% if setor.hierarquia > 0 or cargo.grau_hierarquia >= 5 %}
+        <td>
+          <a href="{{ url_for('editar_perfil', id_usuario=usuario.id) }}"
+            >Editar</a
+          >
+        </td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

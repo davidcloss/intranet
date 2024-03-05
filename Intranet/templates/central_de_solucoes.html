@@ -1,0 +1,59 @@
+{% extends 'home_ferramentas_gerais.html' %}
+{% block body %}
+
+<div class="align-items-center justify-content-center" style="min-height: 100vh;">
+    <div style="min-height: 100px"></div>
+    <div class="row">
+        <div class="col-3">
+            <a href="{{ url_for('central_atendimento', setor='atendimento') }}" class="link-central">
+                <img width="150" src="\static\imagens\icons\atendimento.png">
+                <h5>Atendimento</h5>
+            </a>
+        </div>
+        <div class="col-3">
+            <a href="{{ url_for('central_atendimento', setor='contabilidade') }}" class="link-central">
+                <img width="150" src="\static\imagens\icons\contabil.png" class="p-6">
+                <h5>Contabilidade</h5>
+            </a>
+        </div>
+        <div class="col-3">
+            <a href="{{ url_for('central_atendimento', setor='desenvolvimento') }}" class="link-central">
+                <img width="150" src="\static\imagens\icons\desenvolvimento.png" class="p-6">
+                <h5>Desenvolvimento</h5>
+            </a>
+        </div>
+        <div class="col-3">
+             <a href="{{ url_for('central_atendimento', setor='direcao') }}" class="link-central">
+                <img width="150" src="\static\imagens\icons\direcao.png" class="p-6">
+                <h5>Direção</h5>
+             </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <a href="{{ url_for('central_atendimento', setor='departamentopessoal') }}" class="link-central">
+                <img width="150" src="\static\imagens\icons\dp.png" class="p-6">
+                <h5>Departamento Pessoal</h5>
+            </a>
+        </div>
+        <div class="col-3">
+            <a href="{{ url_for('central_atendimento', setor='financeiro') }}" class="link-central">
+                <img width="150" src="\static\imagens\icons\financeiro.png" class="p-6">
+                <h5>Financeiro</h5>
+            </a>
+        </div>
+        <div class="col-3">
+            <a href="{{ url_for('central_atendimento', setor='fiscal') }}" class="link-central">
+                <img width="150" src="\static\imagens\icons\fiscal.png" class="p-6">
+                <h5>Fiscal</h5>
+            </a>
+        </div>
+        <div class="col-3">
+            <a href="{{ url_for('central_atendimento', setor='societario') }}" class="link-central">
+                <img width="150" src="\static\imagens\icons\societario.png" class="p-6">
+                <h5>Societário</h5>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

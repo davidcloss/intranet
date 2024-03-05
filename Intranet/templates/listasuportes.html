@@ -1,0 +1,40 @@
+<div class="container">
+  <table class="table table-striped suporte table-hover align-middle">
+    <thead>
+      <tr>
+        <th class="id">id</th>
+        <th class="titulo_suporte">Título Suporte</th>
+        <th class="autor">Autor</th>
+        <th class="setor">Setor</th>
+        <th class="setor_destino">Setor Destino</th>
+        <th class="usuario_destino">Usuário destino</th>
+        <th class="situacao_suporte">Situação suporte</th>
+        <th class="ultima_atualizacao">Última atualização</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for chamado in chamados %}
+        {% set classe_html = retorna_classe_html_suporte(chamado) %}
+        {% set data_ultimo_movimento = define_data_ultimo_tramite(chamado) %}
+      <tr>
+          <td class="{{ classe_html }}"><a href="{{ url_for('chamado_visualizacao', id_chamado=chamado.id) }}">{{ chamado.id }}</a></td>
+          <td>{{ chamado.titulo_suporte }}</td>
+          <td>{{ usuarios.query.filter_by(id=chamado.id_usuario_autor).first().nome_usuario }}</td>
+          <td>{{ setores.query.filter_by(id=chamado.id_setor_suporte).first().nome_setor }}</td>
+          <td>
+            {{ setores.query.filter_by(id=chamado.id_setor_destino_suporte).first().nome_setor }}
+          </td>
+          <td>
+            {{ usuarios.query.filter_by(id=chamado.id_usuario_destino).first().nome_usuario }}
+          </td>
+          <td>
+            {{ situacoes.query.filter_by(id=chamado.id_situacao_suporte).first().nome_situacao_suporte }}
+          </td>
+          <td>
+            {{ retorna_data_hora(data_ultimo_movimento) }}
+          </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,19 @@
+{% extends 'usuarios.html' %} {% block edit %} {% endblock %} {% block central %}
+<div class="container">
+  <form method="POST" action="" class="border m-5 p-2">
+    {{ form.csrf_token }}
+    <legend>Cadastro Ramais:</legend>
+    <fieldset>
+      <div class="form-group">
+        {{ form.id_usuario.label(class="form-control-label") }} {{
+        form.id_usuario(class="form-control") }}
+      </div>
+      <div class="form-group">
+        {{ form.id_ramal.label(class="form-control-label") }} {{
+        form.id_ramal(class="form-control") }}
+      </div>
+    </fieldset>
+    {{ form.botao_submit(class="btn btn-primary m-1") }}
+  </form>
+</div>
+{% endblock %}

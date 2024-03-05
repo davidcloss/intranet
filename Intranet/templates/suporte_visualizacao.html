@@ -1,0 +1,132 @@
+{% extends 'suportes.html' %}
+{% set usuario_atual = current_user_data() %}
+{% set situacao_atual = situacoes_suporte.query.filter_by(id=suporte.id_situacao_suporte).first() %}
+{% set setor_usuario_atual = retorna_setor_current_user() %}
+{% set cargo_usuario_atual = retorna_cargo_current_user() %}
+{% set autor = usuarios.query.filter_by(id=suporte.id_usuario_autor).first() %}
+{% set destino = usuarios.query.filter_by(id=suporte.id_usuario_destino).first() %}
+{% block central %}
+
+{% if suporte.visivel == 1 %}
+    {% set visivel = 'Público' %}
+{% else %}
+    {% set visivel = 'Privado' %}
+{% endif %}
+{% if visivel == 'Público' or usuario_atual.id == autor.id or usuario_atual.id == destino.id or setor_usuario_atual.hierarquia > 0 or cargo_usuario_atual.grau_hierarquia >= 5 %}
+<div class="container">
+    <div class="container cabecalho_suporte">
+        <h2 class="text-start p-2">Dados suporte:</h2>
+        <div class="row text-start">
+           <p>
+               <span class="p-3">Id: {{ suporte.id }}</span>
+               <span class="p-3">Título Suporte: </span>
+
+                <span><strong>{{ suporte.titulo_suporte }}</strong></span>
+           </p>
+            <p>
+               <span class="p-3">
+                   Tipo suporte:
+                   {{ tipos_suportes.query.filter_by(id=suporte.id_tipo_suporte).first().nome_tipo_suporte }}
+               </span>
+               <span class="p-3">
+                   Autor:
+                   {{ autor.nome_usuario }}
+               </span>
+               <span class="p-3">
+                   Setor:
+                   {{ setores.query.filter_by(id=suporte.id_setor_suporte).first().nome_setor }}
+               </span>
+               <span class="p-3">
+                   Situação suporte:
+                   {{ situacoes_suporte.query.filter_by(id=suporte.id_situacao_suporte).first().nome_situacao_suporte }}
+               </span>
+               <span class="p-3">
+                   Privacidade:
+                   {{ visivel }}
+               </span>
+           </p>
+           <p>
+               <span class="p-3">
+                   Usuário destino:
+                   {{ destino.nome_usuario }}
+               </span>
+               <span class="p-3">
+                   Setor destino:
+                   {{ setores.query.filter_by(id=suporte.id_setor_destino_suporte).first().nome_setor }}
+               </span>
+               <span class="p-3">
+                   Urgência:
+                   <strong>{{ grau_urgencia.query.filter_by(id=suporte.id_grau_urgencia).first().nome_urgencia }}</strong>
+               </span>
+               <span class="p-3">
+                   Data cadastro:
+                   {{ retorna_data_hora(suporte.data_cadastro) }}
+               </span>
+           </p>
+           <p>
+
+               <span class="p-3">
+                   Data último trâmite:
+                   {{ retorna_data_hora(suporte.data_ultimo_tramite) }}
+               </span>
+           </p>
+        </div>
+    </div>
+    {% for tramite in tramites %}
+    {% set situacao_tramites = situacoes_suporte.query.filter_by(id=tramite.id_situacao_tramite).first() %}
+    {% set situacao_tramite = tramite.ocultar %}
+    {% if situacao_tramite == 1 or usuario_atual.id == autor.id or usuario_atual.id == destino.id or setor_usuario_atual.hierarquia > 0 or cargo_usuario_atual.grau_hierarquia >= 5 %}
+    <div class="container p-3 m-6  my-3 {{ situacao_tramites.classe_html }}">
+        <div class="row text-start">
+            <p>
+                <span class="p-3 m-1">
+                    Trâmite: {{ tramite.id_secundario }}
+                </span>
+                <span class="p-3">
+                    Autor: {{ usuarios.query.filter_by(id=tramite.id_autor).first().nome_usuario }}
+                </span>
+                <span class="p-3">
+                    Data: {{ retorna_data_hora(tramite.data_cadastro) }}
+                </span>
+            </p>
+        </div>
+        <div class="row container mx-auto text-start p-3 background">
+            {{ tramite.body_tramite|safe }}
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% block responder %}
+
+        {% if usuario_atual.id == autor.id or usuario_atual.id == destino.id or setores.query.filter_by(id=usuario_atual.id_setor).first().hierarquia > 0 or cargos.query.filter_by(id=usuario_atual.id_cargo).first().grau_hierarquia >= 5  %}
+
+            {% if situacao_atual.visualizacao == 1  and ultimo_tramite.id_autor == usuario_atual.id %}
+
+                {% include 'responderiza_suporte.html' %}
+
+            {% elif situacao_atual.visualizacao == 2 and usuario_atual.id != ultimo_tramite.id_autor %}
+
+                {% include 'responder_suporte.html' %}
+
+            {% elif situacao_atual.visualizacao == 3 %}
+
+                {% include 'responder_suporte.html' %}
+
+            {% elif situacao_atual.visualizacao == 4 and usuario_atual.id == destino.id %}
+
+                {% include 'responder_suporte.html' %}
+
+            {% elif situacao_atual.visualizacao == 5 and usuario_atual.id == autor.id %}
+
+                {% include 'responder_suporte.html' %}
+
+            {% elif not suporte.id_usuario_destino and suporte.id_setor_destino == usuario_atual.id_setor or setores.query.filter_by(id=usuario_atual.id_setor).first().hierarquia > 0 or cargos.query.filter_by(id=usuario_atual.id_cargo).first().grau_hierarquia >= 5 %}
+
+                {% include 'responder_suporte.html' %}
+
+            {% endif %}
+    {% endif %}
+    {% endblock %}
+</div>
+{% endif %}
+{% endblock %}

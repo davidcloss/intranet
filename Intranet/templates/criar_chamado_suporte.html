@@ -1,0 +1,45 @@
+{% extends 'suportes.html' %}
+{% block central %}
+<div class="container">
+  <form method="POST" action="" class="border m-5 p-2">
+    {{ form_suporte.csrf_token }}
+    <h2>Criar Chamado:</h2>
+    <fieldset>
+      <div class="form-group">
+        {{ form_suporte.titulo_suporte.label(class="form-control-label") }} {{
+        form_suporte.titulo_suporte(class="form-control") }}
+      </div>
+      <div class="form-group">
+        {{ form_suporte.body_tramite.label(class="form-control-label") }} {{
+        form_suporte.body_tramite(class="form-control") }}
+      </div>
+      <div class="form-group">
+        {{ form_suporte.id_tipo_suporte.label(class="form-control-label") }} {{
+        form_suporte.id_tipo_suporte(class="form-control") }}
+      </div>
+      <div class="form-group">
+        {{ form_suporte.id_setor_suporte.label(class="form-control-label") }} {{
+        form_suporte.id_setor_suporte(class="form-control") }}
+      </div>
+      <div class="form-group">
+        {{ form_suporte.id_usuario_destino.label(class="form-control-label") }} {{
+        form_suporte.id_usuario_destino(class="form-control") }}
+      </div>
+      <div class="form-group">
+        {{ form_suporte.id_setor_destino_suporte.label(class="form-control-label") }} {{
+        form_suporte.id_setor_destino_suporte(class="form-control") }}
+      </div>
+      <div class="form-group">
+        {{ form_suporte.id_grau_urgencia.label(class="form-control-label") }} {{
+        form_suporte.id_grau_urgencia(class="form-control") }}
+      </div>
+      <div class="form-group">
+        {{ form_suporte.ocultar.label(class="form-check-label") }} {{
+        form_suporte.ocultar(class="form-check-input") }}
+      </div>
+    </fieldset>
+    {{ form_suporte.botao_submit(class="btn btn-primary m-1") }}
+  </form>
+  {{ ckeditor.load() }} {{ ckeditor.config(name='body_tramite') }}
+</div>
+{% endblock %}

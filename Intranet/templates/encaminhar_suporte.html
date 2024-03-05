@@ -1,0 +1,18 @@
+{% extends 'suporte_visualizacao.html' %}
+{% block responder %}
+<div class="form-group">
+<form method="POST" action="" class="border m-5 p-2">
+     <fieldset>
+         {{ form.csrf_token }}
+       <div class="form-group p-4">
+         <p>{{ form.usuarios.label }} {{ form.usuarios }}</p>
+       </div>
+     </fieldset>
+       <div class="col-4 p-4 offset-md-4">
+         {{ form.botao_submit(class="btn btn-primary m-1") }}
+       </div>
+    {{ ckeditor.load() }} {{ ckeditor.config(name='body_tramite') }}
+  </form>
+</div>
+{% endblock %}
+

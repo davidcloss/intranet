@@ -1,0 +1,237 @@
+body {
+  font-family: "Arial";
+}
+
+.nav-font {
+  font-size: 18px;
+}
+
+.col-border {
+  flex-grow: 1;
+  background: #006699;
+}
+.col-midlle {
+  min-height: 100vh;
+  background: #fff;
+}
+
+.autor_post {
+  text-align: left;
+  font-size: 16px;
+}
+
+.gerais {
+  position: relative;
+  background-color: #f4a460;
+  color: black;
+  border-radius: 10px;
+}
+
+.pessoais {
+  position: relative;
+  background-color: #3cb371;
+  color: black;
+  border-radius: 10px;
+}
+
+.setor-cargo {
+  position: relative;
+  background-color: #483d8b;
+  color: white;
+  border-radius: 10px;
+}
+
+.cargo {
+  position: relative;
+  background-color: #6495ed;
+  color: black;
+  border-radius: 10px;
+}
+
+.setor {
+  position: relative;
+  background-color: #ffc0cb;
+  color: black;
+  border-radius: 10px;
+}
+
+.urgente {
+  position: relative;
+  background-color: #b22222;
+  color: black;
+  border-radius: 10px;
+}
+
+.background {
+  background-color: #fffff0;
+  color: black;
+  border-radius: 10px;
+}
+
+.cabecalho_suporte {
+  background-color: #616161;
+  color: white;
+  border-radius: 10px;
+  /*position: absolute;*/
+  top: 50%;
+  left: 50%;
+  /*transform: translate(-50%, -50%);*/
+}
+
+.suporte_cadastrado {
+  background-color: #c0c0c0;
+  color: black;
+  border-radius: 10px;
+}
+
+.suporte_em_analise {
+  background-color: #9acd32;
+  color: black;
+  border-radius: 10px;
+}
+
+.suporte_aguardando_retorno {
+  background-color: #ff6347;
+  color: black;
+  border-radius: 10px;
+}
+
+.suporte_em_fila_produção {
+  background-color: #40e0d0;
+  color: black;
+  border-radius: 10px;
+}
+
+.suporte_em_execucao {
+  background-color: #4169e1;
+  color: black;
+  border-radius: 10px;
+}
+
+.suporte_encaminhado_destino {
+  background-color: #90ee90;
+  color: black;
+  border-radius: 10px;
+}
+
+.suporte_encaminhado_autor {
+  background-color: #98fb98;
+  color: black;
+  border-radius: 10px;
+}
+
+.suporte_finalizado_sem_sucesso {
+  background-color: #b22222;
+  color: white;
+  border-radius: 10px;
+}
+
+.suporte_finalizado_com_sucesso {
+  background-color: #228b22;
+  color: black;
+  border-radius: 10px;
+}
+
+.link-central {
+  color: black;
+  text-decoration: none;
+  font-weight: 550;
+}
+
+.link-central-2 {
+  color: black;
+  text-decoration: none;
+}
+
+.titulo-pub-central {
+  font-size: 45px;
+  font-weight: bold;
+}
+
+.imagem-pequena {
+  width: 70px;
+  height: auto;
+  max-width: 70px;
+  max-height: 72px;
+}
+/* Regras genéricas do Bootstrap */
+table {
+  width: 100%;
+}
+
+table tr td {
+  padding: 8px;
+}
+
+/* Regras específicas para as classes de status */
+.suporte_cadastrado td {
+  background-color: #c0c0c0;
+}
+
+.suporte_em_analise td {
+  background-color: #f0f0f0;
+}
+
+.suporte_encaminhado_destino td {
+  background-color: #90ee90;
+}
+
+.suporte_encaminhado_autor td {
+  background-color: #fffacd;
+}
+
+.suporte_aguardando_retorno td {
+  background-color: #ff6347;
+}
+
+/* Aumentar a especificidade das regras */
+table.suporte tr.suporte_cadastrado td {
+  background-color: #c0c0c0 !important;
+}
+
+table.suporte tr.suporte_em_analise td {
+  background-color: #f0f0f0 !important;
+}
+
+table.suporte tr.suporte_encaminhado_destino td {
+  background-color: #90ee90 !important;
+}
+
+table.suporte tr.suporte_encaminhado_autor td {
+  background-color: #fffacd !important;
+}
+
+table.suporte tr.suporte_aguardando_retorno td {
+  background-color: #ff6347 !important;
+}
+
+/* Estilos adicionais para a tabela */
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #f9f9f9;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #ddd;
+}
+
+.align-middle {
+  vertical-align: middle;
+}
+
+/* Ajustar a largura das colunas */
+th.id {
+  width: 50px;
+}
+
+th.titulo_suporte {
+  width: 300px;
+}
+
+th.autor,
+th.setor,
+th.setor_destino,
+th.usuario_destino,
+th.situacao_suporte,
+th.ultima_atualizacao {
+  width: 150px;
+}

@@ -1,0 +1,29 @@
+{% extends 'usuarios.html' %} {% block edit %} {% endblock %} {% block central %}
+
+<div class="container">
+  <table class="table table-striped table-hover align-middle">
+    <thead>
+      <tr>
+        <th>Ramal</th>
+        <th>Situação</th>
+        <th>Edição</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for ramal in ramais %}
+      <tr>
+        <td>{{ ramal.ramal }}</td>
+        <td>
+          {{
+          situacoes.query.filter_by(id=ramal.situacoes_ramais).first().nome_situacao
+          }}
+        </td>
+        <td>
+          <a href="{{ url_for('edicao_ramais', ramal_id=ramal.id) }}">Editar</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

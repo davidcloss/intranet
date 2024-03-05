@@ -1,0 +1,35 @@
+{% extends 'home_ferramentas_gerais.html' %}
+{% set setor = retorna_setor_current_user() %}
+{% set cargo = retorna_cargo_current_user() %}
+{% set usuario_atual = current_user_data() %}
+{% block body %}
+<div class="container row">
+    <div class="col-3">
+        <div class="row">
+            <a href="{{ url_for('usuarios') }}"><img width="200" class="p-3" src="\static\imagens\icons\equipe.png"></a>
+        </div>
+        {% if usuario_atual.id == 1 %}
+        <a href="{{ url_for('criar_conta') }}" class="link-central"><h5 class="p-2 text-start">Cadastro Usuário</h5></a>
+        {% endif %}
+        <a href="{{ url_for('perfil', id_usuario=usuario_atual.id) }}" class="link-central"><h5 class="p-2 text-start">Perfil</h5></a>
+        <a href="{{ url_for('lista_contatos') }}" class="link-central"><h5 class="p-2 text-start">Lista Usuários</h5></a>
+        {% if setor.hierarquia > 0 or cargo.grau_hierarquia >= 5 %}
+        <a href="{{ url_for('cadastro_ramais') }}" class="link-central"><h5 class="p-2 text-start">Cadastro Ramais</h5></a>
+        <a href="{{ url_for('lista_ramais') }}" class="link-central"><h5 class="p-2 text-start">Lista Ramais</h5></a>
+        <a href="{{ url_for('vinculo_ramais') }}" class="link-central"><h5 class="p-2 text-start">Vínculos Ramais</h5></a>
+        <a href="{{ url_for('lista_contatos_inativos') }}" class="link-central"><h5 class="p-2 text-start">Lista Contatos Inativos</h5></a>
+        {% endif %}
+        {% block editarpubli %}{% endblock %}
+    </div>
+    <div class="col-9 text-start p-3">
+        <div class="row">
+            <h1>Usuários:</h1>
+        </div>
+        <div class="row p-3">
+            {% block central %}
+            <a class="link-central-2" href=""><h3></h3></a>
+            {% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}

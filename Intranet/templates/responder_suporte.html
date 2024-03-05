@@ -1,0 +1,24 @@
+<div class="form-group">
+  <form method="POST" action="/suporte/chamados/{{ suporte.id }}" class="border m-5 p-2">
+     <fieldset>
+         {{ form.csrf_token }}
+       <div class="form-group">
+                {{ form.body_tramite.label(class="form-control-label") }}
+                {{ form.body_tramite(class="form-control") }}
+       </div>
+       <div class="form-group p-4">
+         <p>{{ form.encerrar.label }} {{ form.encerrar }}</p>
+       </div>
+       {% if suporte.visivel == 1 %}
+       <div class="form-group">
+          {{ form.ocultar.label(class="form-check-label") }} {{
+          form.ocultar(class="form-check-input") }}
+       </div>
+       {% endif %}
+     </fieldset>
+       <div class="col-4 p-4 offset-md-4">
+         {{ form.botao_submit(class="btn btn-primary m-1") }}
+       </div>
+      {{ ckeditor.load() }} {{ ckeditor.config(name='body_tramite') }}
+  </form>
+</div>

@@ -1,0 +1,43 @@
+{% extends 'usuarios.html' %} {% block edit %} {% endblock %} {% block central %}
+<div class="container">
+  <form method="POST" action="" class="border m-5 p-2">
+    {{ form.csrf_token }}
+    <legend>Edição Perfil:</legend>
+    <fieldset>
+      <div class="form-group text-start">
+        {{ form.nome_usuario.label(class="form-control-label") }} {{
+        form.nome_usuario(class="form-control") }}
+      </div>
+      <div class="form-group text-start">
+        {{ form.username.label(class="form-control-label") }} {{
+        form.username(class="form-control") }}
+      </div>
+      <div class="form-group text-start">
+        {{ form.email_uso.label(class="form-control-label") }} {{
+        form.email_uso(class="form-control") }}
+      </div>
+      <div class="form-group text-start">
+        {{ form.email_pessoal.label(class="form-control-label") }} {{
+        form.email_pessoal(class="form-control") }}
+      </div>
+      <div class="form-group text-start">
+        {{ form.id_cargo.label(class="form-control-label") }} {{
+        form.id_cargo(class="form-control") }}
+      </div>
+      <div class="form-group text-start">
+        {{ form.id_setor.label(class="form-control-label") }} {{
+        form.id_setor(class="form-control") }}
+      </div>
+      <div class="form-group text-start">
+        {{ form.id_ramal.label(class="form-control-label") }} {{
+        form.id_ramal(class="form-control") }}
+      </div>
+      <div class="form-group text-start">
+        {{ form.situacao_usuario.label(class="form-control-label") }} {{
+        form.situacao_usuario(class="form-control") }}
+      </div>
+    </fieldset>
+    {{ form.botao_submit(class="btn btn-primary m-1") }}
+  </form>
+</div>
+{% endblock %}

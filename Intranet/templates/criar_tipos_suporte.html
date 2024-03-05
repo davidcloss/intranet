@@ -1,0 +1,16 @@
+{% extends 'suportes.html' %}
+{% block central %}
+<div class="container">
+  <form method="POST" action="" class="border m-5 p-2">
+    {{ form.csrf_token }}
+    <legend>Cadastro Situações Suporte:</legend>
+    <fieldset>
+      <div class="form-group">
+        {{ form.nome_tipo_suporte.label(class="form-control-label") }} {{
+        form.nome_tipo_suporte(class="form-control") }}
+      </div>
+    </fieldset>
+    {{ form.botao_submit(class="btn btn-primary m-1") }}
+  </form>
+</div>
+{% endblock %}

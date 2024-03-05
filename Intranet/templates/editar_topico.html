@@ -1,0 +1,24 @@
+{% extends 'central_atendimento.html' %}
+{% block central %}
+<div class="container">
+    <form method="POST" action="" class="border m-5 p-2">
+      {{ form.csrf_token }}
+      <h2>Edição Tópicos:</h2>
+      <fieldset>
+        <div class="form-group">
+          {{ form.nome_topico.label(class="form-control-label") }} {{
+          form.nome_topico(class="form-control") }}
+        </div>
+        <div class="form-group">
+          {{ form.observacao.label(class="form-control-label") }} {{
+          form.observacao(class="form-control") }}
+        </div>
+        <div class="form-group">
+          {{ form.situacao.label(class="form-control-label") }} {{
+          form.situacao(class="form-control") }}
+        </div>
+      </fieldset> {{
+      form.botao_submit(class="btn btn-primary m-3") }}
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'central_atendimento.html' %}
+{% set setor = retorna_setor_current_user() %}
+{% set cargo = retorna_cargo_current_user() %}
+{% set cargo_publi = cargos.query.filter_by(id=publicacao.setor).first() %}
+{% block editarpubli %}
+{% if setor.hierarquia > 0 or cargo.grau_hierarquia >= 5 %}
+    <a href="{{ url_for('editar_publicacoes', id_publicacao=publicacao.id, setor=setor_o) }}" class="link-central"><h5 class="p-2 text-start">Editar Publicação</h5></a>
+{% endif %}
+{% endblock %}
+{% block central %}
+{% if publicacao.visivel == 1 or (publicacao.visivel == 2 and cargo.grau_hierarquia >= cargo_publi.grau_hierarquia) or (publicacao.visivel == 3 and (cargo.grau_hierarquia >= 5 or setor.hierarquia > 0)) %}
+
+
+    <div class="container text-center">
+        <h2 class="m-3 titulo-pub-central">{{ publicacao.titulo }}</h2>
+        <div class="text-start">
+            <p class="m-6">
+                {{ publicacao.body|safe }}
+            </p>
+        </div>
+        <hr>
+        <div class="row text-center">
+            <div class="col-3">
+                <p>Autor: {{ usuarios.query.filter_by(id=publicacao.id_usuario_autor).first().nome_usuario }}</p>
+            </div>
+            <div class="col-3">
+                <p>Data Criação: {{ converte_data_string(publicacao.data_cadastro) }}</p>
+            </div>
+            <div class="col-3">
+                <p>Tópico: {{ topicos.query.filter_by(id=publicacao.id_topico).first().nome_topico }}</p>
+            </div>
+            {% if publicacao.cargo %}
+            {% set cargo_publi = cargos.query.filter_by(id=publicacao.cargo).first().nome_cargo %}
+            {% else %}
+            {% set cargo_publi = ' Geral' %}
+            {% endif %}
+            <div class="col-3">
+                <p>Cargo: {{ cargo_publi }}</p>
+            </div>
+        </div>
+    </div>
+{% else %}
+<h1>Você não tem autorização para ver essa publicação</h1>
+{% endif %}
+{% endblock %}

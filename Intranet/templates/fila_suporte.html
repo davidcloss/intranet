@@ -1,0 +1,55 @@
+{% extends 'suportes.html' %}
+
+{% block nome %}
+{{ usuario_fila }}
+{% endblock %}
+{% block central %}
+
+<div class="row">
+    <div class="col-1 text-start">
+        ID
+    </div>
+    <div class="col text-center">
+        Título
+    </div>
+    <div class="col text-center">
+        Autor
+    </div>
+    <div class="col text-center">
+        Setor
+    </div>
+    <div class="col text-end">
+        Posição fila
+    </div>
+    <hr>
+</div>
+
+{% for suporte in suportes %}
+
+<div class="row">
+    <div class="col-1 text-start">
+        <a href="{{ url_for('chamado_visualizacao', id_chamado=suporte.id) }}">{{ suporte.id }}</a>
+    </div>
+    <div class="col text-center">
+        {{ suporte.titulo_suporte }}
+    </div>
+    <div class="col text-center">
+        {{ usuarios.query.filter_by(id=suporte.id_usuario_autor).first().nome_usuario }}
+    </div>
+    <div class="col text-center">
+        {{ setores.query.filter_by(id=suporte.id_setor_suporte).first().nome_setor }}
+    </div>
+    {% if not suporte.ordem_fila %}
+    <div class="col text-end">
+        <a href="{{ url_for('adiciona_fila_suporte', id_suporte=suporte.id) }}">Adiconar a fila</a>
+    </div>
+    {% else %}
+    <div class="col text-end">
+        <a href="{{ url_for('altera_ordem_fila_suporte', id_chamado=suporte.id) }}">{{ suporte.ordem_fila }}</a>
+    </div>
+    {% endif %}
+    <hr>
+</div>
+{% endfor %}
+{% endblock %}
+

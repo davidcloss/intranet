@@ -1,0 +1,23 @@
+{% extends 'suportes.html' %}
+{% block central %}
+<div class="container">
+  <form method="POST" action="" class="border m-6 p-2">
+    {{ form.csrf_token }}
+    <fieldset>
+    <div class="row text-start">
+
+        <div class="form-group col">
+            {{ form.pesquisa.label(class="form-control-label col") }} {{ form.pesquisa(class="form-control col") }}
+        </div>
+    </div>
+    </fieldset>
+      {{ form.botao_submit(class="btn btn-primary m-1") }}
+  </form>
+
+
+
+    {% block tabela %}
+        {% include 'listasuportes.html' %}
+    {% endblock %}
+{% endblock %}
+</div>

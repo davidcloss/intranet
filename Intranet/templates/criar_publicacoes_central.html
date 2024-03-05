@@ -1,0 +1,52 @@
+{% extends 'central_atendimento.html' %}
+{% block central %}
+<div class="container">
+    <form method="POST" action="" class="border m-5 p-2">
+      {{ form.csrf_token }}
+      <h2>Cadastro Publicações:</h2>
+      <fieldset>
+        <div class="form-group">
+          {{ form.titulo.label(class="form-control-label") }} {{
+          form.titulo(class="form-control") }}
+        </div>
+        <div class="form-group">
+          {{ form.body.label(class="form-control-label") }} {{
+          form.body(class="form-control") }}
+        </div>
+        <div class="form-group">
+          {{ form.cargo.label(class="form-control-label") }} {{
+          form.cargo(class="form-control") }}
+        </div>
+        <div class="form-group">
+          {{ form.id_topico.label(class="form-control-label") }} {{
+          form.id_topico(class="form-control") }}
+        </div>
+        <div class="form-group">
+        {{ form.visivel.label(class="form-control-label") }} {{
+        form.visivel(class="form-control") }}
+      </div>
+      </fieldset> {{
+      form.botao_submit(class="btn btn-primary m-1") }}
+    </form>
+    {{ ckeditor.load() }} {{ ckeditor.config(name='body') }}
+  <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'), {
+                plugins: [ 'Image', 'ImageUpload' ],
+                toolbar: [ 'imageUpload', '|', 'undo', 'redo' ],
+                image: {
+                    toolbar: [ 'imageTextAlternative', '|', 'imageStyle:full', 'imageStyle:side' ],
+                    upload: {
+                        uploadUrl: '/upload-image'  // Esta rota deve ser configurada em seu aplicativo Flask
+                    }
+                }
+            })
+            .then(editor => {
+                console.log('Editor was initialized', editor);
+            })
+            .catch(error => {
+                console.error('There was an error initializing the editor', error);
+            });
+    </script>
+</div>
+{% endblock %}

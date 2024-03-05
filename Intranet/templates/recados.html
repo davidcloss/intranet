@@ -1,0 +1,55 @@
+{% set usuario_atual = current_user_data() %}
+{% set recados = retorna_posts() %}
+{% set setor = retorna_setor_current_user() %}
+{% set cargo = retorna_cargo_current_user() %}
+
+{% for recado in recados %}
+    {% set tipos = retorna_tipos_recados(recado.id_tipo_recado) %}
+    {% set usuario = usuarios.query.get(recado.id_usuario_autor) %}
+    {% set data = converte_data_string(recado.data_cadastro) %}
+    {% set usuario_destino = usuarios.query.filter_by(id=recado.id_usuario_destino).first() | default(' -') %}
+    {% set setor_destino = setores.query.filter_by(id=recado.setor).first() if recado.setor else None %}
+    {% set cargo_destino = cargos.query.filter_by(id=recado.cargo).first() if recado.cargo else None %}
+
+    {% if not recado.setor or (setor_destino and setor_destino.id == setor.id) %}
+        {% if not recado.cargo or (cargo_destino and cargo_destino.grau_hierarquia <= cargo.grau_hierarquia) %}
+            {% if not recado.id_usuario_destino or recado.id_usuario_destino == usuario_atual.id %}
+                <div class="container">
+                    <div class="{{ tipos }}">
+                        <div class="container p-3 m-3">
+                            <div class="container row text-start">
+                                <img class="imagem-pequena" src="\static\imagens\icons\recados_home.png">
+                                <span class="autor_post col-1">id: {{ recado.id }}</span>
+                                <span class="autor_post col">Autor: {{ usuario.nome_usuario }}</span>
+                                <span class="autor_post col">Data criação: {{ data }}</span>
+                                <span class="autor_post col">Tipo recado: {{ tipos }}</span>
+                                <span class="autor_post col">Usuário Destino: {{ usuario_destino.nome_usuario }}</span>
+                                <span class="autor_post col">Setor Destino: {{ setor_destino.nome_setor if setor_destino else ' -' }}</span>
+                                <span class="autor_post col">Cargo Destino: {{ cargo_destino.nome_cargo if cargo_destino else ' -' }}</span>
+                            </div>
+                            <div class="row mx-start col-12 background">
+                                <div class="p-4 text-center m-4">
+                                    <div class="">
+                                        <h1>{{ recado.titulo }}</h1>
+                                        <p class="m-2 text-center p-2">{{ recado.body|safe}}</p>
+                                        {% if recado.id_usuario_autor == usuario_atual.id or setor.hierarquia > 0 or cargo.grau_hierarquia >= 5 %}
+                                            {% if recado.identificador == 1 %}
+                                                <p class="autor_post p-3">
+                                                    <a href="{{ url_for('editar_recados_fixos', id_recado=recado.id) }}">Editar</a>
+                                                </p>
+                                            {% else %}
+                                                <p class="autor_post p-3">
+                                                    <a href="{{ url_for('editar_recados_temporarios', id_recado=recado.id) }}">Editar</a>
+                                                </p>
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+{% endfor %}

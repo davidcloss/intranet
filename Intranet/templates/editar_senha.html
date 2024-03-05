@@ -1,0 +1,22 @@
+{% extends 'usuarios.html' %}
+{% block central %}
+<form method="POST" action="" class="border m-5 p-5">
+    {{ form.csrf_token }}
+    <legend>Login:</legend>
+    <fieldset>
+      <div class="form-group">
+        {{ form.senha_atual.label(class="form-control-label") }}
+        {{ form.senha_atual(class="form-control") }}
+      </div>
+      <div class="form-group">
+        {{ form.senha.label(class="form-control-label") }}
+        {{ form.senha(class="form-control") }}
+      </div>
+      <div class="form-group">
+        {{ form.confirmacao_senha.label(class="form-control-label") }}
+        {{ form.confirmacao_senha(class="form-control") }}
+      </div>
+    </fieldset>
+    {{ form.botao_submit(class="btn btn-primary mt-3") }}
+</form>
+{% endblock %}

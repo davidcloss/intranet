@@ -1,0 +1,52 @@
+{% extends 'central_atendimento.html' %}
+{% set setor = retorna_setor_current_user() %}
+{% set cargo = retorna_cargo_current_user() %}
+{% block central %}
+<div class="container">
+  <div class="row">
+    <form method="POST" action="" class="border m-6 p-2">
+    {{ form.csrf_token }}
+    <fieldset>
+      <div class="form-group col">
+            {{ form.pesquisa.label(class="form-control-label col") }} {{ form.pesquisa(class="form-control col") }}
+      </div>
+    </fieldset>
+      {{ form.botao_submit(class="btn btn-primary mt-3") }}
+    </form>
+  </div>
+  <table class="table table-striped table-hover table-borderless align-middle">
+    <thead>
+      <tr>
+        <th>Título</th>
+        <th>Tópico</th>
+        <th>Autor</th>
+        <th>Data Criação</th>
+        <th>Cargo</th>
+      </tr>
+    </thead>
+    <tbody id="resultado">
+      {% if publicacoes %}
+        {% for publicacao in publicacoes %}
+          {% if publicacao.cargo %}
+            {% set cargo = cargos.query.filter_by(id=publicacao.cargo).first().nome_cargo %}
+          {% else %}
+            {% set cargo = '-' %}
+          {% endif %}
+          <tr>
+            <td><a class="link-central-2" href="{{ url_for('publicacoes', setor=setor_o, id_publicacao=publicacao.id) }}">{{ publicacao.titulo }}</a></td>
+            <td>{{ topicos.query.filter_by(id=publicacao.id_topico).first().nome_topico }}</td>
+            <td>{{ usuarios.query.filter_by(id=publicacao.id_usuario_autor).first().nome_usuario }}</td>
+            <td>{{ converte_data_string(publicacao.data_cadastro) }}</td>
+            <td>{{ cargo }}</td>
+          </tr>
+        {% endfor %}
+      {% else %}
+        <tr>
+          <td colspan="5">Nenhum resultado encontrado.</td>
+        </tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+<script src="https://unpkg.com/htmx.org@1.9.10"></script>
+{% endblock %}

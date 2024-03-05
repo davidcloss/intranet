@@ -1,0 +1,43 @@
+<ul class="navbar-nav nav-font container">
+    {% if current_user.is_authenticated %}
+        {% set usuario_atual = current_user_data() %}
+        <!-- Novos botões -->
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('ferramentas_gerais') }}">Gerais</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="">Contabilidade</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="">Fiscal</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="">Pessoal</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="">Societário</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('desenvolvimento') }}">Desenvolvimento</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="">Financeiro</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="">Atendimento</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('direcao') }}">Direção</a>
+        </li>
+    {% endif %}
+</ul>
+<ul class="navbar-nav ml-auto">
+    {% if usuario_atual %}
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('perfil', id_usuario=usuario_atual.id) }}">{{ usuario_atual.nome_usuario }}</a>
+        </li>
+    {% endif %}
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('sair') }}">Sair</a>
+    </li>
+</ul>

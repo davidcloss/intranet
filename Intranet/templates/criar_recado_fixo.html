@@ -1,0 +1,32 @@
+{% extends 'home_ferramentas_gerais.html' %} {% block body %}
+<div class="container">
+  <form method="POST" action="" class="border m-5 p-2">
+    {{ form.csrf_token }}
+    <h2>Criar Post:</h2>
+    <fieldset>
+      <div class="form-group">
+        {{ form.titulo.label(class="form-control-label") }} {{
+        form.titulo(class="form-control") }}
+      </div>
+      <div class="form-group">
+        {{ form.body.label(class="form-control-label") }} {{
+        form.body(class="form-control") }}
+      </div>
+      <div class="form-group">
+        {{ form.setor.label(class="form-control-label") }} {{
+        form.setor(class="form-control") }}
+      </div>
+      <div class="form-group">
+        {{ form.cargo.label(class="form-control-label") }} {{
+        form.cargo(class="form-control") }}
+      </div>
+      <div class="form-group">
+        {{ form.id_usuario_destino.label(class="form-control-label") }} {{
+        form.id_usuario_destino(class="form-control") }}
+      </div>
+    </fieldset> {{
+    form.botao_submit_postar(class="btn btn-primary m-1") }}
+  </form>
+  {{ ckeditor.load() }} {{ ckeditor.config(name='body') }}
+</div>
+{% endblock %}

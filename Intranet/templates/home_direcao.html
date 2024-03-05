@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% set usuario_atual = current_user_data() %}
+{% set setor = retorna_setor_current_user() %}
+{% set cargo = retorna_cargo_current_user() %}
+
+{% block navbarver %}
+<ul class="navbar-nav">
+{% if setor.hierarquia > 0 and cargo.grau_hierarquia >= 8 %}
+  <li class="navbar-item text-start ps-3">
+    <a class="nav-link text-white" href="{{ url_for('home_admin') }}"
+      >Pesquisa Recados</a
+    >
+  </li>
+{% endif %}
+</ul>
+{% endblock %} {% block body %}
+  {% include 'encaminha_recados.html' %}
+{% endblock %}

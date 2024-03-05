@@ -1,0 +1,32 @@
+{% extends 'base.html' %} {% block body %}
+<div class="container-fluid">
+  <div class="col-lg-8 mx-auto d-flex justify-content-center align-items-center">
+  <form method="POST" action="" class="border m-5 p-5">
+    {{ form_login.csrf_token }}
+    <h2>Login:</h2>
+    <fieldset>
+      <div class="form-group">
+        {{ form_login.email.label(class="form-control-label") }} {% if
+        form_login.email.errors %} {{ form_login.email(class="form-control
+        is-invalid") }}
+
+        <div class="invalid_feedback">
+          {% for erro in form_login.email.errors %} {{ erro }} {% endfor %}
+        </div>
+
+        {% else %} {{ form_login.email(class="form-control") }} {% endif %}
+      </div>
+      <div class="form-group">
+        {{ form_login.senha.label(class="form-control-label") }} {{
+        form_login.senha(class="form-control") }}
+      </div>
+      <div class="form-group">
+        {{ form_login.lembrar_dados.label(class="form-check-label") }} {{
+        form_login.lembrar_dados(class="form-check-input") }}
+      </div>
+    </fieldset>
+    {{ form_login.botao_submit_login(class="btn btn-primary mt-3") }}
+  </form>
+    </div>
+</div>
+{% endblock %}

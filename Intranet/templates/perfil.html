@@ -1,0 +1,37 @@
+{% set usuario_atual = current_user_data() %}
+{% extends 'usuarios.html' %}
+{% set vinculo_ramal_obj = vinculo_ramal.query.filter_by(id_usuario=usuario.id).first() %}
+{% if vinculo_ramal_obj %}
+    {% set vinculo = ramal.query.filter_by(id=vinculo_ramal_obj.id_ramal).first() %}
+    {% set nro_ramal = vinculo.ramal %}
+{% else %}
+    {% set nro_ramal = '-' %}
+{% endif %}
+{% block editarpubli %}
+{% if usuario_atual.id == usuarios.query.filter_by(id=id_usuario).first().id %}
+<a href="{{ url_for('alterar_senha', id_usuario=id_usuario) }}" class="link-central"><h5 class="p-2 text-start">Alterar Senha</h5></a>
+{% elif setor.hierarquia > 0 or cargo.grau_hierarquia >= 5 %}
+<a href="{{ url_for('alterar_senha', id_usuario=id_usuario) }}" class="link-central"><h5 class="p-2 text-start">Alterar Senha</h5></a>
+{% endif %}
+{% if setor.hierarquia > 0 or cargo.grau_hierarquia >= 5 %}
+<a href="{{ url_for('editar_perfil', id_usuario=id_usuario) }}" class="link-central"><h5 class="p-2 text-start">Editar Perfil</h5></a>
+{% endif %}
+{% endblock %}
+{% block central %}
+
+<h4 class="m-3">Nome usuário: {{ usuario.nome_usuario }}</h4>
+
+<h4 class="m-3">Username: {{ usuario.username }}</h4>
+
+<h4 class="m-3">E-mail de uso: {{ usuario.email_uso }}</h4>
+
+<h4 class="m-3">E-mail pessoal: {{ usuario.email_pessoal }}</h4>
+
+<h4 class="m-3">Cargo: {{ cargo.query.filter_by(id=usuario.id_cargo).first().nome_cargo }}</h4>
+
+<h4 class="m-3">Setor: {{ setor.query.filter_by(id=usuario.id_setor).first().nome_setor }}</h4>
+
+<h4 class="m-3">Ramal: {{ nro_ramal }}</h4>
+
+<h4 class="m-3">E-mail pessoal: {{ situacao.query.filter_by(id=usuario.situacao_usuario).first().nome_situacao }}</h4>
+{% endblock %}
